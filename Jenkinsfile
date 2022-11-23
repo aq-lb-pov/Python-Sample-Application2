@@ -34,7 +34,6 @@ timestamps {
         }
         stage('Manifest Generation') {
             withCredentials([
-                usernamePassword(credentialsId: 'jenkinsgithub', usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN'), 
                 string(credentialsId: 'AQUA_KEY', variable: 'AQUA_KEY'), 
                 string(credentialsId: 'AQUA_SECRET', variable: 'AQUA_SECRET'),
 	        string(credentialsId: 'GITHUB_TOKEN', variable: 'GITHUB_TOKEN')
