@@ -13,11 +13,14 @@ timestamps {
                 string(credentialsId: 'AQUA_SECRET', variable: 'AQUA_SECRET')
             ]) {
                 sh '''
+		    export AQUA_KEY=$AQUA_KEY
+                    export AQUA_SECRET=$AQUA_SECRET
                     export TRIVY_RUN_AS_PLUGIN=aqua
                     export trivyVersion=0.32.0
   		    curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b . v${trivyVersion}  
 		    ./trivy plugin update aqua
                     ./trivy fs --debug --format template --template "@Report-Templates/aqua.tpl" -o report.html --security-checks config,vuln,secret .
+
                 '''
             }
         }
@@ -54,6 +57,7 @@ timestamps {
                         --aqua-secret ${AQUA_SECRET} \
                         --access-token ${GITHUB_TOKEN} \
                         --artifact-path ./requirements.txt
+
                         # The docker image name:tag of the newly built image
                         # --artifact-path "my-image-name:my-image-tag" 
                         # OR the path to the root folder of your project. I.e my-repo/my-app 
