@@ -11,10 +11,9 @@ timestamps {
             withCredentials([
                 string(credentialsId: 'AQUA_KEY', variable: 'AQUA_KEY'), 
                 string(credentialsId: 'AQUA_SECRET', variable: 'AQUA_SECRET')
-            ]) {
+		string(credentialsId: 'GITHUB_TOKEN', variable: 'GITHUB_TOKEN')
+	    ]) {
                 sh '''
-		    export AQUA_KEY=$AQUA_KEY
-                    export AQUA_SECRET=$AQUA_SECRET
                     export TRIVY_RUN_AS_PLUGIN=aqua
                     export trivyVersion=0.32.0
   		    curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b . v${trivyVersion}  
