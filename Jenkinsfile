@@ -14,11 +14,13 @@ timestamps {
                 string(credentialsId: 'GITHUB_TOKEN', variable: 'GITHUB_TOKEN')
             ]) {
                 sh '''
+                    export AQUA_URL=https://eu-1.supply-chain.cloud.aquasec.com  
+                    export CSPM_URL=https://eu-1.api.cloudsploit.com
                     export TRIVY_RUN_AS_PLUGIN=aqua
                     export trivyVersion=0.32.0
                     curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b . v${trivyVersion}  
                     ./trivy plugin update aqua
-                    ./trivy fs --debug --format template --template "@Report-Templates/aqua.tpl" -o report.html --security-checks config,vuln,secret .
+                    ./trivy fs --security-checks config,vuln,secret .
                 '''
             }
         }
@@ -51,9 +53,11 @@ timestamps {
             ]) {
                 // Replace ARTIFACT_PATH with the path to the root folder of your project 
                 // or with the name:tag the newly built image
-                    // --artifact-path "aquasaemea/mynodejs-app:1.0"
+                    // --artifact-path "docker-org/image:tag"
                 sh '''
-                  export BILLY_SERVER=https://prod-aqua-billy.codesec.aquasec.com
+                    export BILLY_SERVER=https://billy.eu-1.codesec.aquasec.com
+                    export AQUA_URL=https://eu-1.supply-chain.cloud.aquasec.com  
+                    export CSPM_URL=https://eu-1.api.cloudsploit.com
                     curl -sLo install.sh download.codesec.aquasec.com/billy/install.sh
                     curl -sLo install.sh.checksum https://github.com/argonsecurity/releases/releases/latest/download/install.sh.checksum
                   if ! cat install.sh.checksum | sha256sum ; then
