@@ -14,7 +14,7 @@ timestamps {
                 string(credentialsId: 'GITHUB_TOKEN', variable: 'GITHUB_TOKEN')
             ]) {
                 sh '''
-                    export AQUA_URL=https://eu-1.supply-chain.cloud.aquasec.com  
+                    export AQUA_URL=https://eu-1.supply-chain.cloud.aquasec.com
                     export CSPM_URL=https://eu-1.api.cloudsploit.com
                     export TRIVY_RUN_AS_PLUGIN=aqua
                     export trivyVersion=0.32.0
@@ -56,7 +56,7 @@ timestamps {
                     // --artifact-path "docker-org/image:tag"
                 sh '''
                     export BILLY_SERVER=https://billy.eu-1.codesec.aquasec.com
-                    export AQUA_URL=https://eu-1.supply-chain.cloud.aquasec.com  
+                    export AQUA_URL=https://eu-1.supply-chain.cloud.aquasec.com
                     export CSPM_URL=https://eu-1.api.cloudsploit.com
                     curl -sLo install.sh download.codesec.aquasec.com/billy/install.sh
                     curl -sLo install.sh.checksum https://github.com/argonsecurity/releases/releases/latest/download/install.sh.checksum
